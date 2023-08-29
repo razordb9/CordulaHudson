@@ -13,7 +13,5 @@
     </main>
 </div>
 <style lang="scss">
-    * {
-        background-color: blue;
-    }
+
 </style>
