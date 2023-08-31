@@ -1,11 +1,11 @@
 <script lang="ts">
     import '../app.css';
-	import Naviation from '$lib/components/Naviation.svelte';
+	import Navigation from '$lib/components/Navigation.svelte';
     
     
 </script>
 <div class="app">
-    <Naviation></Naviation>
+    <Navigation></Navigation>
     <main>
         <slot>
             
@@ -13,7 +13,5 @@
     </main>
 </div>
 <style lang="scss">
-* {
-    background-color: red;
-}
+
 </style>
