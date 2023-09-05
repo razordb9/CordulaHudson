@@ -1,12 +1,29 @@
 <script lang="ts">
-  import { enhance } from "$app/forms";
-  import ZodIssues from "$lib/components/ZodIssues.svelte";
+    import { applyAction, enhance } from "$app/forms";
+    import type { ActionResult } from "@sveltejs/kit";
+    import type { ActionData } from "./$types";
 
-  export let form;
+    export let form: ActionData;
+ 
+    console.log("xxxxxxxxxxxxxx", form?.zodErrors[0]);
 </script>
 
 <div class="wrapper">
-    <form method="Post">
+    <form method="Post" 
+        use:enhance={({ formElement, formData, action, cancel }) => {
+
+            return async ({ result }) => {
+            // `result` is an `ActionResult` object
+                if (result.type === 'success') {
+                    const data = result.data;
+                    console.log(data?.error);
+                    await applyAction(result);
+                }
+            };
+        }}
+        action="?/submit"
+    >
+        
         <label for="fullName">Full name:</label>
         <input type="text" id="fullName" name="fullName" required />    
         
@@ -18,11 +35,17 @@
         
         <button type="submit" value="Submit">Submit</button>
     </form>    
-</div>
 
-{#if form?.issues}
-	<ZodIssues issues={form.issues} />
-{/if}
+    {#if form?.success == false}
+        <ul class="zodErrors">
+            {#each form?.zodErrors as error}
+            
+            <li>{error.field} - {error.message}</li>
+        {/each}
+        </ul>
+        
+    {/if}
+</div>
 
 
 <style lang="scss">
@@ -39,5 +62,15 @@
         margin-top: 6px; /* Add a top margin */
         margin-bottom: 16px; /* Bottom margin */
         resize: none;
+    }
+
+    .zodErrors li {
+        background-color: red;
+        list-style-type: none;
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding: 5px;
+        color: white;
     }
 </style>
