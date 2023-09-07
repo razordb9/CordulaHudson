@@ -17,7 +17,6 @@
             // `result` is an `ActionResult` object
                 if (result.type === 'success') {
                     const data = result.data;
-                    console.log(data?.error);
                     await applyAction(result);
                 }
             };
@@ -25,15 +24,15 @@
         action="?/submit"
     >
         <label for="fullName">Full name:</label>
-        <input type="text" id="fullName" name="fullName"  required/>
+        <input type="text" id="fullName" name="fullName"  value="Thomas" required/>
         <FormErrors {form} fieldName = "Fullname"/>
 
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" placeholder="example@email.com"/>
+        <input type="email" id="email" name="email" value="thomas.zaussnig@outlook.com"/>
         <FormErrors {form} fieldName = "Email"/>
 
         <label for="textArea">Message:</label>
-        <textarea name="message" id="message" rows="10" cols="30"  />
+        <textarea name="message" id="message" rows="10" cols="30"  value="This is just for testing purpose"/>
         <FormErrors {form} fieldName = "Message"/>
 
         <button type="submit" value="Submit">Submit</button>
