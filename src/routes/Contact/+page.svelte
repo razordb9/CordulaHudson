@@ -23,6 +23,7 @@
         action="?/submit"
     >
 <<<<<<< HEAD
+<<<<<<< HEAD
         <label for="fullName">Full name:</label>
         <input type="text" id="fullName" name="fullName"  value="Thomas" required/>
         <FormErrors {form} fieldName = "Fullname"/>
@@ -36,6 +37,8 @@
         <FormErrors {form} fieldName = "Message"/>
 
         <button type="submit" value="Submit">Submit</button>
+=======
+>>>>>>> parent of 90884b1 (added pico css, finished ZOD implementation)
 =======
 >>>>>>> parent of 90884b1 (added pico css, finished ZOD implementation)
         

@@ -82,7 +82,7 @@ export const actions = {
         }
 
         const safeParse = formSchema.safeParse(contact);
-        console.log("safeparse", safeParse.error.format());
+        const validatedData = validateFormData(safeParse).error;
 
         if (!safeParse.success) {
             let errors = safeParse.error.issues;
