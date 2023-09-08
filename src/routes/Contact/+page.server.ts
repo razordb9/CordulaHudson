@@ -9,16 +9,37 @@ const str = new RegExp(/^[^0-9]*$/);
 const formSchema = z.object({
   Fullname: z.string({
     required_error: "Nachname ist ein Pflichtfeld",
-    }).regex(str, "Mir eagl").min(6,{ message: "Geben Sie mindesten 6 Zeichen ein" }),
-  Email: z.string().trim().email({ message: "Email Adresse ist ungültig"}),
-  Message: z.string().trim().min(10, { message: "Geben sie mindestens 10 Zeichen ein"}).max(1024, {
-    message: "Nachricht zu lange"
-  })
+
+    }).regex(str, "Mir eagl").min(6,{ message: "Geben Sie mindesten 2 Zeichen ein" }),
+  Email: z.string().trim().email().min(1),
+  Message: z.string().trim().min(10)
 });
+
+const validateFormData = (validationResponse:any) =>{
+    const response={
+        success:false,
+        error:{},
+    }
+    if (!validationResponse.success) {
+        const zodError = validationResponse.error.format();
+        // console.log("zodError", zodError)
+        response.error = zodError;
+    } else {
+        response.success = true;
+    }
+    return response;
+}
+
+type zodError = {
+    field:string,
+    message:string
+}
+
+type zodErrors = Array<zodError>;
 
 type hugo = {
     success: boolean,
-    zodErrors: {}
+    zodErrors: zodErrors
 }
 export const actions = {
     submit: async ({request}) => {
@@ -51,7 +72,7 @@ export const actions = {
 
         let data:hugo = {
             success: false,
-            zodErrors: {}
+            zodErrors: []
         }
 
         const contact = {
@@ -61,10 +82,17 @@ export const actions = {
         }
 
         const safeParse = formSchema.safeParse(contact);
-        
+        console.log("safeparse", safeParse.error.format());
+
         if (!safeParse.success) {
             let errors = safeParse.error.issues;
-            data.zodErrors = safeParse.error.format();
+            const zodErrors:zodErrors = errors.map((error:any) => {
+                return {
+                  field: error.path[0],
+                  message: error.message
+                };
+            });
+            data.zodErrors = zodErrors;
         } else {
             data.success = true;
             send().catch(console.error);

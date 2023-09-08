@@ -30,7 +30,6 @@
 		"vitest": "^0.32.2"
 	},
 	"dependencies": {
-		"nodemailer": "^6.9.5",
 		"sass": "^1.66.1",
 		"zod": "^3.22.2"
 	}

@@ -1,6 +1,5 @@
 <script lang="ts">
     import '../app.css';
-    import '$lib/css/pico.min.css';
 	import Navigation from '$lib/components/Navigation.svelte';
     
     
