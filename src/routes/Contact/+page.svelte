@@ -1,28 +1,29 @@
 <script lang="ts">
   import { enhance } from "$app/forms";
   import ZodIssues from "$lib/components/ZodIssues.svelte";
+  import FormErrors from "$lib/Components/FormErrors.svelte";
 
-  export let form;
+  export let form: ActionData;
 </script>
 
 <div class="wrapper">
     <form method="Post">
         <label for="fullName">Full name:</label>
-        <input type="text" id="fullName" name="fullName" required />    
-        
+        <input type="text" id="fullName" name="fullName"  />    
+        <FormErrors {form} fieldName = "Fullname"/>
+
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" placeholder="example@email.com" required />
-        
+        <input type="email" id="email" name="email" placeholder="example@email.com"  />
+        <FormErrors {form} fieldName = "Email"/>
+
         <label for="textArea">Message:</label>
-        <textarea name="message" id="message" rows="10" cols="30" required />
+        <textarea name="message" id="message" rows="10" cols="30"  />
+        <FormErrors {form} fieldName = "Message"/>
         
         <button type="submit" value="Submit">Submit</button>
     </form>    
 </div>
 
-{#if form?.issues}
-	<ZodIssues issues={form.issues} />
-{/if}
 
 
 <style lang="scss">

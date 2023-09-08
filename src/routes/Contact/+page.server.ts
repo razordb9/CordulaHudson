@@ -3,15 +3,25 @@ import type { Actions } from './$types';
 const str = new RegExp(/^[^0-9]*$/);
 
 const formSchema = z.object({
-  name: z.string().trim().min(3),
-  email: z.string().trim().email().min(1),
-  textarea: z.string().trim().min(5)
-});
+    Fullname: z.string({
+      required_error: "Nachname ist ein Pflichtfeld",
+  
+      }).regex(str, "Mir eagl").min(6,{ message: "Geben Sie mindesten 6 Zeichen ein" }),
+    Email: z.string().trim().email({ message: "Email Adresse ist ungültig"}),
+    Message: z.string().trim().min(10, { message: "Geben sie mindestens 10 Zeichen ein"}).max(1024, {
+      message: "Nachricht zu lange"
+    })
+  });
+
+  type hugo = {
+    success: boolean,
+    zodErrors: {}
+  }
 
 export const actions = {
     default: async ({request}) => {
         const formData = await request.formData();
-        // console.log(formData);
+        console.log(formData);
         
         let data:hugo = {
             success: false,
@@ -28,13 +38,7 @@ export const actions = {
 
         if (!safeParse.success) {
             let errors = safeParse.error.issues;
-            const zodErrors:zodErrors = errors.map((error:any) => {
-                return {
-                  field: error.path[0],
-                  message: error.message
-                };
-            });
-            data.zodErrors = zodErrors;
+            data.zodErrors = safeParse.error.format();
         } else {
             data.success = true;
         }
