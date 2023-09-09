@@ -19,30 +19,34 @@ const formSchema = z.object({
   }
 
 export const actions = {
-    default: async ({request}) => {
+    submit: async ({request}) => {
         const formData = await request.formData();
         console.log(formData);
         
         let data:hugo = {
             success: false,
-            zodErrors: []
+            zodErrors: {}
         }
 
         const contact = {
-            name: String(formData.get("fullName")),
-            email: String(formData.get("email")),
-            message: String(formData.get("message")),
+            Fullname: String(formData.get("fullName")),
+            Email: String(formData.get("email")),
+            Message: String(formData.get("message")),
         }
-
+        console.log("contact", contact);
         const safeParse = formSchema.safeParse(contact);
 
         if (!safeParse.success) {
             let errors = safeParse.error.issues;
+
+            console.log("safeparse error format", safeParse.error.format())
+            console.log("errors", errors)
+
             data.zodErrors = safeParse.error.format();
         } else {
             data.success = true;
         }
-        console.log(data);
+        console.log("payload", data);
         return data;
     }
   };

@@ -1,13 +1,23 @@
 <script lang="ts">
-  import { enhance } from "$app/forms";
-  import ZodIssues from "$lib/components/ZodIssues.svelte";
+  import { applyAction, enhance } from "$app/forms";
   import FormErrors from "$lib/Components/FormErrors.svelte";
+  import type { ActionData } from "./$types";
 
   export let form: ActionData;
 </script>
 
 <div class="wrapper">
-    <form method="Post">
+    <form method="Post" 
+        use:enhance={({ formElement, formData, action, cancel }) => {
+            return async ({ result }) => {
+            // `result` is an `ActionResult` object
+                if (result.type === 'success') {
+                    await applyAction(result);
+                }
+            };
+        }}
+        action="?/submit"
+    >
         <label for="fullName">Full name:</label>
         <input type="text" id="fullName" name="fullName"  />    
         <FormErrors {form} fieldName = "Fullname"/>
