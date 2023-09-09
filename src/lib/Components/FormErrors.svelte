@@ -3,7 +3,7 @@
     export let fieldName: string;
 </script>
 
-{#if form?.zodErrors[fieldName]._errors.length > 0}    
+{#if form?.zodErrors[fieldName]?._errors.length > 0}    
     {#each form?.zodErrors[fieldName]._errors as error}
         <small class="formErrors">{error}</small>  
     {/each}
