@@ -1,9 +1,146 @@
-*,*::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-html{
-    background-color: #323232;
+:root {
+    --content-width: 1240px;
+    --side:1rem;
+    --primary: #D4AF37;
+    --secondary: #973B3B;
+    --secondary-hover: #853434;
+    --background: #FFFFEF;
+    --accent-color: #073B4C;
+
+    --text: var(--text-1);
+    --brand: var(--brand-light);
+    --text-1: var(--text-1-light);
+    --text-2: var(--text-2-light);
+    --surface-1: var(--surface-1-light);
+    --surface-2: var(--surface-2-light);
+    --surface-3: var(--surface-3-light);
+    --surface-4: var(--surface-4-light);
+}
+
+html,
+body {
+    height: 100%;
+}
+
+html {
+    --brand-dark: var(--primary);
+
+    --text-1-dark: var(--background);
+    --text-2-dark: var(--background);
+
+    --surface-1-dark: var(--gray-12);
+    --surface-2-dark: var(--secondary);
+    --surface-3-dark: var(--primary);
+    --surface-4-dark: var(--secondary-hover);
+
+    --brand-light: var(--primary);
+    --text-1-light: var(--gray-8);
+    --text-2-light: var(--secondary);
+    --surface-1-light: var(--gray-0);
+    --surface-2-light: var(--background);
+    --surface-3-light: var(--secondary);
+    --surface-4-light: var(--secondary);
+
+    --brand-dim: var(--orange-4);
+    --text-1-dim: var(--gray-3);
+    --text-2-dim: var(--gray-4);
+    --surface-1-dim: var(--gray-8);
+    --surface-2-dim: var(--gray-7);
+    --surface-3-dim: var(--gray-6);
+    --surface-4-dim: var(--gray-5);
+
+    accent-color: var(--accent-color);
+    background-color: var(--surface-2);
+    --link-visited: var(--surface-3);
+    color: var(--text-1);
+   
+}
+
+
+h1,
+h2,
+h3,
+h4,
+p,
+dt {
+    color: var(--text-1);
+}
+
+h5,
+h6,
+small,
+dd {
+    color: var(--text-2);
+}
+
+.surface-1 {
+    background-color: var(--surface-1);
+    color: var(--text-2);
+}
+
+.surface-2 {
+    background-color: var(--surface-2);
+    color: var(--text-2);
+}
+
+.surface-3 {
+    background-color: var(--surface-3);
+    color: var(--text-1);
+}
+
+.surface-4 {
+    background-color: var(--surface-4);
+    color: var(--text-1);
+}
+
+.surface-5 {
+    background-color: var(--surface-4);
+    color: var(--orange-3);
+}
+
+[style*='--tag'] {
+    view-transition-name: var(--tag);
+}
+
+/* Only do the FLIP-style animations when no reduced-motion preference */
+@media (prefers-reduced-motion: no-preference) {
+    [style*='--tag'] {
+        view-transition-name: var(--tag);
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --brand: var(--brand-dark);
+
+        --text-1: var(--text-1-dark);
+        --text-2: var(--text-2-dark);
+
+        --surface-1: var(--surface-1-dark);
+        --surface-2: var(--surface-2-dark);
+        --surface-3: var(--surface-3-dark);
+        --surface-4: var(--surface-4-dark);
+    }
+}
+
+@media (prefers-contrast: less) {
+    :root {
+        --brand: var(--brand-dim);
+
+        --text-1: var(--text-1-dim);
+        --text-2: var(--text-2-dim);
+
+        --surface-1: var(--surface-1-dim);
+        --surface-2: var(--surface-2-dim);
+        --surface-3: var(--surface-3-dim);
+        --surface-4: var(--surface-4-dim);
+    }
 }

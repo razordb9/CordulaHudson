@@ -1,0 +1,104 @@
+:root{
+    --nav-background: #212529;
+    --nav-primary:#fcfcfc;
+    --nav-height: 4rem;
+}
+.show-burger {
+    display: none;
+}
+.menu-items,  .menu-item-group, .menu-item, .menu-item-logo {
+    list-style: none;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+}
+.menu-items,  .menu-item-group{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+.menu-item  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 5rem;
+    height: var(--nav-height);
+    // margin-inline: 1rem;
+}
+.menu-item-logo{
+    box-sizing: border-box;
+    height: var(--nav-height);
+    display: flex;
+    position: relative;
+    justify-content: left;
+    align-items: center;
+    width: auto;
+    // padding-inline: 1rem;
+    padding-right: 1rem;
+    a{
+        display: flex;
+        min-width: 10rem;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+}
+.burger{
+    display: none;
+}
+
+@media screen and (max-width:768px){
+    .show-burger {
+        display: flex !important;
+        position: absolute;
+        right: 0px;
+        top:0px;
+        height: var(--nav-height);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .menu-items{
+        flex-direction: column;
+        height:3rem;
+        height: var(--nav-height);
+        overflow: hidden;
+        .menu-item{
+            position: absolute;
+            top:-100px;
+            min-width: 100%;
+            justify-content: center;
+            align-self: center;
+            height: 0px;
+            opacity: 0;
+            transition: height 0.3s ease-in-out;
+        }
+    }
+    .toggle-menu {
+        display: flex;
+        height: 100%;
+        .menu-item{
+            display: flex;
+            position: relative;
+            height: var(--nav-height);
+            top:0px;
+            opacity: 1;
+            margin: 0;
+            width: auto;
+        }
+    }
+    .menu-item-group {
+        min-width: 100% !important;
+        flex-direction: column;
+        align-items: start;
+        justify-content: left;
+    }
+    .menu-item-logo{
+        width: 100%;
+        justify-content: left;
+        min-width: 100%;
+        // width: 10rem;
+    }
+}
